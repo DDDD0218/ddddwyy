@@ -5,15 +5,18 @@ import { RightOutline } from "antd-mobile-icons";
 import { MoreOutlined } from "@ant-design/icons";
 import { Icon } from "@iconify/react";
 import { Link } from "react-router-dom";
+import { Popup } from "antd-mobile";
+import Downmenu from "./downmenu";
 export default function Recommond() {
   const [list, setList] = useState([]);
+  const [visible1, setVisible1] = useState(false);
   useEffect(() => {
     axios
       .get(
         "https://netease-cloud-music-api-five-roan-88.vercel.app/homepage/block/page/"
       )
       .then((res) => {
-        console.log(res.data.data.blocks[1].creatives);
+        // console.log(res.data.data.blocks[1].creatives);
         setList(res.data.data.blocks[1].creatives.map((item) => item));
       })
       .catch((err) => {
@@ -101,9 +104,29 @@ export default function Recommond() {
           推荐歌单
           <RightOutline className=" text-[15px]" />
         </span>
-        <span>
+        <span
+          onClick={() => {
+            setVisible1(true);
+          }}
+        >
           <MoreOutlined />
         </span>
+        <Popup
+          visible={visible1}
+          onMaskClick={() => {
+            setVisible1(false);
+          }}
+          onClose={() => {
+            setVisible1(false);
+          }}
+          bodyStyle={{
+            height: "45vw",
+            borderTopLeftRadius: "15px",
+            borderTopRightRadius: "15px",
+          }}
+        >
+          {<Downmenu />}
+        </Popup>
       </div>
       <Swiper indicator={() => null} slideSize={35} defaultIndex={0}>
         {items}

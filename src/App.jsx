@@ -24,7 +24,12 @@ function App() {
         <Route
           path="Detailedlist/:id"
           element={<LazyComponent path="Detailedlist" />}
-        ></Route>
+        />
+        <Route
+          path="Videoplay/:id"
+          element={<LazyComponent path="Videoplay" />}
+        />
+        <Route path="Audioplay" element={<LazyComponent path="Audioplay" />} />
       </Routes>
     </>
   );

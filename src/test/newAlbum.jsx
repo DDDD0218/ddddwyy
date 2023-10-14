@@ -3,9 +3,13 @@ import axios from "axios";
 import { Swiper } from "antd-mobile";
 import { RightOutline } from "antd-mobile-icons";
 import { MoreOutlined } from "@ant-design/icons";
+import { Popup } from "antd-mobile";
+import Downmenu from "./downmenu";
 
 export default function NewAlbum() {
   const [list, setList] = useState([]);
+  const [visible1, setVisible1] = useState(false);
+
   useEffect(() => {
     axios
       .get(
@@ -59,9 +63,29 @@ export default function NewAlbum() {
           新歌新碟\数字专辑
           <RightOutline className=" text-[15px]" />
         </span>
-        <span>
+        <span
+          onClick={() => {
+            setVisible1(true);
+          }}
+        >
           <MoreOutlined />
         </span>
+        <Popup
+          visible={visible1}
+          onMaskClick={() => {
+            setVisible1(false);
+          }}
+          onClose={() => {
+            setVisible1(false);
+          }}
+          bodyStyle={{
+            height: "45vw",
+            borderTopLeftRadius: "15px",
+            borderTopRightRadius: "15px",
+          }}
+        >
+          {<Downmenu />}
+        </Popup>
       </div>
       <Swiper
         indicator={() => null}
